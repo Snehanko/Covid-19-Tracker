@@ -4,10 +4,18 @@ import axios from 'axios';
 export default class State extends Component {
     constructor(props){
         super(props);
-
+            this.sate={}
     }
 
-    render(props) {
+    getStateData=async()=>{
+        const res=axios.get(`https://api.covid19india.org/state_district_wise.json`);
+    }
+
+    componentDidMount(){
+        getStateData();
+    }
+
+    render() {
 
         return (
             <div>
