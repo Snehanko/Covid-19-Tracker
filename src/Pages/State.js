@@ -7,12 +7,11 @@ export default class State extends Component {
             this.sate={}
     }
 
-    getStateData=async()=>{
-        const res=axios.get(`https://api.covid19india.org/state_district_wise.json`);
-    }
-
-    componentDidMount(){
-        getStateData();
+    async componentDidMount(){
+        try{
+            const res= await axios.get(`https://api.covid19india.org/state_district_wise.json`);
+        }
+        catch(err){console.log(err)}
     }
 
     render() {
@@ -21,6 +20,12 @@ export default class State extends Component {
             <div>
                 <h3>State Data:</h3>
                 <p>{this.props.name}</p>
+                <div>
+                <form>
+                        <input type="text" label="Enter State Name" />
+                        <input type="submit" name="submit" label="View Districts" />
+                </form>
+                </div>    
             </div>
         )
     }
