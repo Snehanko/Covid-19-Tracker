@@ -1,37 +1,74 @@
-import { useState } from 'react';
-import CountryData from './Home Components/CountryData';
-import {BrowserRouter as Router,Route,Switch,Link} from "react-router-dom";
-import State from './State';
+import React,{useState,useEffect} from 'react'
+import axios from 'axios';
+import { useHistory } from "react-router-dom";
 
 
-const Home=()=>{
+export default function Home() {
 
-    // const [stateNames,setStateNames] = useState({});
-    const [inputName, setInputName] = useState('');
+    const [data,setData]=useState([]);
+    const [state_list,setStateList] = useState([]);
+    const history = useHistory();
 
+    const getCovidUpdate = async()=>{
+        try{
+            const res=await axios.get('https://api.covid19india.org/data.json')
+            const res_1=await axios.get('https://api.covid19india.org/state_district_wise.json')
+            setStateList(Object.keys(res_1.data)); //making a list of states
+            setData(res.data.statewise[0]);
 
-    const stateChange = (e) =>setInputName({inputName:e.target.value});
+        }catch(err){
+            console.log(err);
+        }
+        
+    }
 
-    const onSubmit = (e)=>{
-        e.preventDefault();
+    useEffect(() => {
+            getCovidUpdate();
+    }, [])
 
-    console.log(inputName);
-
-
-}
-        return (
+    return (
+        <div>
+            <h2>India's Current Situation</h2>
+            <ul>   
+                <li> 
+                    <h5>Active Cases</h5>
+                    <p>{data.active}</p>          
+                </li>
+                <li> 
+                    <h5>Confirmed Cases</h5>
+                    <p>{data.confirmed}</p>          
+                </li>
+                <li> 
+                    <h5>Deaths Recorded till Date</h5>
+                    <p>{data.deaths}</p>          
+                </li>
+                <li> 
+                    <h5>Recovered</h5>
+                    <p>{data.recovered}</p>          
+                </li>
+                <li> 
+                    <h5>Updated On</h5>
+                    <p>{data.lastupdatedtime}</p>          
+                </li>
+            </ul>
             <div>
-                <h1>Home Page</h1>  
-                <CountryData />
-                <div>
-                    <h1>States :</h1>
-                    <form onSubmit={onSubmit}>
-                        <input type="text" label="Enter State Name" onChange={stateChange} />
-                        <input type="submit" name="submit" label="Submit" />
-                    </form>
-                </div>
-            </div>
-        )
+                <h2>Statewise Distribution</h2>
+                <table>
+                    <thead>
+                    <th>State</th>
+                    <th>View More</th>
+                    </thead>
+                    <tbody>
+                        {state_list.map(country=> 
+                        <tr key={country}>
+                            <td>{country}</td>
+                            <td><a href="#" onClick={()=>history.push(`/${country}`)}>View</a></td>
+                        </tr>)
+                        }
+                    </tbody>
+                </table>
+            </div>    
+        </div>
+    )
 }
 
-export default Home;

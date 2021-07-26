@@ -7,8 +7,8 @@ export default class State extends Component {
 
     }
 
-    render(props) {
-
+    render() {
+        console.log(this.props.match.params.state);
         return (
             <div>
                 <h3>State Data:</h3>

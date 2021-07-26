@@ -1,6 +1,8 @@
 import Home from './Pages/Home';
 import State from './Pages/State';
 import {BrowserRouter as Router,Route,Switch,Link} from "react-router-dom";
+import './App.css'
+
 
 function App() {
     return (
@@ -10,11 +12,9 @@ function App() {
           <Router>
             <Switch>
               <Route path="/" exact component={Home} />
-              <Route path="/state" exact component={State} />
+              <Route path="/:state" exact component={State} />
             </Switch> 
           </Router>
-          {/* <State />
-          <Home /> */}
         </div>        
     </>
   );
