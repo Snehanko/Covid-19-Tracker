@@ -1,4 +1,5 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react';
+import {DataContext} from './Home Components/Context';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
 
@@ -6,25 +7,44 @@ import { useHistory } from "react-router-dom";
 export default function Home() {
 
     const [data,setData]=useState([]);
-    const [state_list,setStateList] = useState([]);
+    const [stateData,setStateData]=useContext(DataContext);
+    const [stateList,setSateList]=useState([]);
+    
+
     const history = useHistory();
 
     const getCovidUpdate = async()=>{
-        try{
-            const res=await axios.get('https://api.covid19india.org/data.json')
-            const res_1=await axios.get('https://api.covid19india.org/state_district_wise.json')
-            setStateList(Object.keys(res_1.data)); //making a list of states
-            setData(res.data.statewise[0]);
-
-        }catch(err){
-            console.log(err);
-        }
+               try{  const res=await axios.get('https://api.covid19india.org/data.json');
+                     setData(res.data.statewise[0]);
+                }catch(err){
+                    console.log(err);
+                }
+                
+            //    console.log(stateData);
         
     }
 
+    const getSateList = async()=>{
+        try{
+                const res_2=await axios.get('https://api.covid19india.org/state_district_wise.json');
+                console.log(res_2.data);
+                setSateList(res_2.data);
+        }catch(err)
+        {
+            console.log(err);
+        }
+    }
+
     useEffect(() => {
-            getCovidUpdate();
-    }, [])
+            getCovidUpdate();  
+            getSateList();
+    },[])
+
+    function onClick(state){
+        
+        history.push(`/${stateList[state]}`);//Sending Data of District to State.js page 
+        console.log(stateList[state]);
+    }
 
     return (
         <div>
@@ -59,10 +79,10 @@ export default function Home() {
                     <th>View More</th>
                     </thead>
                     <tbody>
-                        {state_list.map(country=> 
-                        <tr key={country}>
-                            <td>{country}</td>
-                            <td><a href="#" onClick={()=>history.push(`/${country}`)}>View</a></td>
+                        {stateData.map(state=> 
+                        <tr key={state}>
+                            <td>{state}</td>
+                            <td><a href="#" onClick={()=>onClick(state)}>View</a></td>
                         </tr>)
                         }
                     </tbody>
