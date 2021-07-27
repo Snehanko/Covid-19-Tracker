@@ -2,6 +2,8 @@ import React,{useState,useEffect,useContext} from 'react';
 import {DataContext} from './Home Components/Context';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import './Home.css'
+
 
 
 export default function Home() {
@@ -29,33 +31,60 @@ export default function Home() {
     }
 
     return (
-        <div>
-            <h2>India's Current Situation</h2>
-            <ul>   
-                <li> 
-                    <h5>Active Cases</h5>
-                    <p>{countryData.active}</p>          
-                </li>
-                <li> 
-                    <h5>Confirmed Cases</h5>
-                    <p>{countryData.confirmed}</p>          
-                </li>
-                <li> 
-                    <h5>Deaths Recorded till Date</h5>
-                    <p>{countryData.deaths}</p>          
-                </li>
-                <li> 
-                    <h5>Recovered</h5>
-                    <p>{countryData.recovered}</p>          
-                </li>
-                <li> 
-                    <h5>Updated On</h5>
-                    <p>{countryData.lastupdatedtime}</p>          
-                </li>
-            </ul>
+        <>
+            <div>
+                <h1>🔴LIVE</h1>
+                <h2>India's Current Situation</h2>
+                <div className="container">
+                    <ul className="list"> 
+                        <li className="list-item"> 
+                            <div className="card">  
+                                <div className="card-box">
+                                    <h5 className="card-name">Active Cases</h5>
+                                    <p className="card-data">{countryData.active}</p>
+                                </div>
+                            </div>          
+                        </li>
+                        <li className="list-item">  
+                            <div className="card">  
+                                <div className="card-box">
+                                    <h5 className="card-name">Confirmed Cases</h5>
+                                    <p className="card-data">{countryData.confirmed}</p>   
+                                </div>
+                            </div>       
+                        </li>
+                        <li className="list-item"> 
+                            <div className="card">  
+                                <div className="card-box">
+                                    <h5 className="card-name">Deaths Recorded till Date</h5>
+                                    <p className="card-data">{countryData.deaths}</p> 
+                                </div>
+                            </div>         
+                        </li>
+                        <li className="list-item"> 
+                            <div className="card">  
+                                <div className="card-box">
+                                    <h5 className="card-name">Recovered</h5>
+                                    <p className="card-data">{countryData.recovered}</p>   
+                                </div> 
+                            </div>      
+                        </li>
+                        <li className="list-item"> 
+                            <div className="card">  
+                                <div className="card-box">
+                                    <h5 className="card-name">Updated On</h5>
+                                    <p className="card-data">{countryData.lastupdatedtime}</p>   
+                                </div>
+                            </div>           
+                        </li>
+                    </ul>
+                </div>
+               
+            </div>
+
             <div>
                 <h2>State Wise Distribution</h2>
-                <table>
+                <table className="styled-table">
                     <thead>
                     <th>State</th>
                     <th>View More</th>
@@ -69,7 +98,7 @@ export default function Home() {
                         }
                     </tbody>
                 </table>
-            </div>    
-        </div>
+            </div>   
+      </>       
     )
 }

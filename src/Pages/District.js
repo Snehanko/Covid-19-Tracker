@@ -1,6 +1,7 @@
 import React, { useContext} from 'react'
 import { Bar } from 'react-chartjs-2';
 import {DataContext} from './Home Components/Context';
+import './Chart.css'
 
 export default function District(props) {
 
@@ -32,7 +33,8 @@ export default function District(props) {
             <div>
                 <h2>{`State : ${stateName}`}</h2>
                 <h3>{`District : ${districtName}`}</h3>
-                <Bar data={chartConfig.chartData}
+                <Bar className="bar-plot" 
+                    data={chartConfig.chartData}
                     options={{
                         title:{
                             display:true,

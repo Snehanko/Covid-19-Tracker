@@ -3,7 +3,6 @@ import State from './Pages/State';
 import District from './Pages/District';
 import DataProvider from './Pages/Home Components/Context';
 import {BrowserRouter as Router,Route,Switch,Link} from "react-router-dom";
-import './App.css'
 
 
 function App() {

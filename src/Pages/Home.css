@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #2b2929;
+  color: #dddddd;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list-item {
+  list-style: none;
+  margin: 10px 20px;
+}
+
+.card {
+  background-color: #e4dede;
+  width: 300px;
+  height: 210px;
+  border-radius: 12%;
+}
+
+.card-box {
+  background-color: #7c9800;
+  margin: 1rem;
+  padding: 2rem;
+  border: solid 10px #e4dede;
+  border-radius: 12%;
+  color: red;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+/*TABLE DESIGN*/
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead {
+  background-color: #7c9800;
+  color: #faf6f6;
+  text-align: center;
+}
+
+tr {
+  background-color: #009879;
+  color: #0e0d0d;
+  text-align: center;
+}
+
+th {
+  padding: 12px 15px;
+}
+
+td {
+  padding: 12px 15px;
+}
+
+tbody {
+  border-bottom: 1px solid #dddddd;
+  background-color: #f3f3f3;
+  border-bottom: 2px solid #009879;
+  font-weight: bold;
+  color: #009879;
+}
+
+tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}

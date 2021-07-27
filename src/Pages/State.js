@@ -1,6 +1,7 @@
 import React,{useContext} from 'react'
 import { useHistory } from 'react-router-dom';
 import {DataContext} from './Home Components/Context';
+import './State.css'
 
 export default function State(props) {
 
@@ -14,7 +15,7 @@ export default function State(props) {
             <h2>{`District Wise Distribution for ${stateName}`}</h2>
                
                 <table>
-                    <thead>
+                    <thead className="styled-table">
                     <th>District</th>
                     <th>View More</th>
                     </thead>
