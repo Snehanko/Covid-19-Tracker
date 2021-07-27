@@ -10,11 +10,10 @@ export default function DataProvider(props) {
 
             async function getDataUpdate(){
                 const req=await axios.get('https://api.covid19india.org/state_district_wise.json');
-                setState(Object.keys(req.data));
-                return req.data;
+                setState(req.data);
             } 
             getDataUpdate();
-    },['https://api.covid19india.org/state_district_wise.json'])
+    },[])
 
     return (
         <>

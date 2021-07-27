@@ -1,53 +1,38 @@
-import axios from 'axios';
-import React, { Component } from 'react'
+import React, { useContext} from 'react'
 import { Bar } from 'react-chartjs-2';
+import {DataContext} from './Home Components/Context';
 
-export default class District extends Component {
-    constructor(props){
-        super(props);
+export default function District(props) {
 
-        this.state={
-            districtNames:{},
-            inputName:'',
+        const districtName = props.match.params.district;
+        const stateName = props.match.params.state
+        const [stateData] = useContext(DataContext);
+        const {active,confirmed,deceased,recovered} = stateData[stateName].districtData[districtName];
+        
+        const chartConfig={
                 chartData:{
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    labels: ['Active', 'Confirmed', 'Deceased', 'Recovered'],
                     datasets: [
                         {
-                            label: 'Covid cases in District',
-                            data: [65, 59, 80, 81, 56, 55, 40],
+                            label: 'Covid cases distribution',
+                            data: [active,confirmed,deceased,recovered],
                             backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                            'rgba(255, 159, 64, 0.2)',
-                            'rgba(255, 205, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(201, 203, 207, 0.2)'
+                            'red',
+                            'green',
+                            'black',
+                            'yellow'
                             ]
                         }
                     ]
                     
                 }
-            }      
-
-
-        }
-    // async getDistrictData(){
-
-    //         const res= await axios.get('https://api.covid19india.org/state_district_wise.json');
-
-    //         console.log(res.data.inputName);
-    // }
-
-    // componentDidMount(){
-    //     this.getDistrictData();
-    // }
-
-    render() {
+            } 
+    
         return (
             <div>
-                <h1>District details here</h1>
-                <Bar data={this.state.chartData}
+                <h2>{`State : ${stateName}`}</h2>
+                <h3>{`District : ${districtName}`}</h3>
+                <Bar data={chartConfig.chartData}
                     options={{
                         title:{
                             display:true,
@@ -62,5 +47,4 @@ export default class District extends Component {
                     />
             </div>
         )
-    }
 }

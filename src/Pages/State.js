@@ -1,36 +1,32 @@
-import React,{useState,useContext} from 'react'
+import React,{useContext} from 'react'
 import { useHistory } from 'react-router-dom';
-
-
+import {DataContext} from './Home Components/Context';
 
 export default function State(props) {
 
-    const [district,setDistrict] = useState([]);
-
-    setDistrict(props);//But here its is recieveing an [object object] arr
-    console.log(district);
+    const [stateData]=useContext(DataContext);
+    const stateName = props.match.params.state;
+    const district_list = stateData[stateName].districtData;
     const history = useHistory();
-
-    // console.log(district);
 
     return (
         <div>
-            <h2>Statewise Distribution</h2>
+            <h2>{`District Wise Distribution for ${stateName}`}</h2>
                
-                {/* <table>
+                <table>
                     <thead>
-                    <th>State</th>
+                    <th>District</th>
                     <th>View More</th>
                     </thead>
                     <tbody>
-                        {statelist.map(district=> 
-                        <tr key={state}>
-                            <td>{state}</td>
-                            <td><a href="#" onClick={()=>history.push(`/${d}`)}>View</a></td>
+                        {Object.keys(district_list).map(district=> 
+                        <tr key={district}>
+                            <td>{district}</td>
+                            <td><a href="#" onClick={()=>history.push(`/${stateName}/${district}`)}>View</a></td>
                         </tr>)
                         }
                     </tbody>
-                </table> */}
+                </table>
         </div>
     )
 }

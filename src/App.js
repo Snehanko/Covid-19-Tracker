@@ -16,7 +16,7 @@ function App() {
               <Switch>
                 <Route path="/" exact component={Home} />
                 <Route path="/:state" exact component={State} />
-                <Route path="/district" exact component={District} />
+                <Route path="/:state/:district" exact component={District} />
               </Switch> 
             </Router>
           </DataProvider>
