@@ -1,8 +1,10 @@
 import React,{useState,useEffect,useContext} from 'react';
 import {DataContext} from './Home Components/Context';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
-import './Home.css'
+import {getFormattedNumber} from "../Utility/utility";
+import TableContainer from "../Components/Table";
+import mask from "../Images/mask-2.png";
+import './Home.css';
 
 
 
@@ -10,8 +12,6 @@ export default function Home() {
 
     const [countryData,setCountryData]=useState([]);
     const [stateData]=useContext(DataContext);
-
-    const history = useHistory();
 
     const getCovidUpdate = async()=>{
                try{  const res=await axios.get('https://api.covid19india.org/data.json');
@@ -25,80 +25,37 @@ export default function Home() {
             getCovidUpdate();  
     },[])
 
-    function onClick(state){
-        history.push(`/${state}`);//Sending Data of District to State.js page 
-        
-    }
-
+    const {active,confirmed,deaths,recovered,lastupdatedtime} = countryData;
     return (
-        <>
             <div>
-                <h1>🔴LIVE</h1>
-                <h2>India's Current Situation</h2>
+                <div className="header-container"><h2>India's COVID crisis</h2><img className ="mask-image" src={mask} alt="mask"/></div>
                 <div className="container">
-                    <ul className="list"> 
-                        <li className="list-item"> 
-                            <div className="card">  
                                 <div className="card-box">
-                                    <h5 className="card-name">Active Cases</h5>
-                                    <p className="card-data">{countryData.active}</p>
+                                    <h4 className="card-name">Active Cases</h4>
+                                    <p className="card-data">{getFormattedNumber(active)}</p>
                                 </div>
-                            </div>          
-                        </li>
-                        <li className="list-item">  
-                            <div className="card">  
                                 <div className="card-box">
-                                    <h5 className="card-name">Confirmed Cases</h5>
-                                    <p className="card-data">{countryData.confirmed}</p>   
+                                    <h4 className="card-name">Confirmed Cases</h4>
+                                    <p className="card-data">{getFormattedNumber(confirmed)}</p>   
                                 </div>
-                            </div>       
-                        </li>
-                        <li className="list-item"> 
-                            <div className="card">  
                                 <div className="card-box">
-                                    <h5 className="card-name">Deaths Recorded till Date</h5>
-                                    <p className="card-data">{countryData.deaths}</p> 
+                                    <h4 className="card-name">Deaths Recorded</h4>
+                                    <p className="card-data">{getFormattedNumber(deaths)}</p> 
                                 </div>
-                            </div>         
-                        </li>
-                        <li className="list-item"> 
-                            <div className="card">  
                                 <div className="card-box">
-                                    <h5 className="card-name">Recovered</h5>
-                                    <p className="card-data">{countryData.recovered}</p>   
+                                    <h4 className="card-name">Recovered</h4>
+                                    <p className="card-data">{getFormattedNumber(recovered)}</p>   
                                 </div> 
-                            </div>      
-                        </li>
-                        <li className="list-item"> 
-                            <div className="card">  
                                 <div className="card-box">
-                                    <h5 className="card-name">Updated On</h5>
-                                    <p className="card-data">{countryData.lastupdatedtime}</p>   
-                                </div>
-                            </div>           
-                        </li>
-                    </ul>
+                                    <h4 className="card-name">Last Updated On</h4>
+                                    <p className="card-data">{lastupdatedtime}</p>   
                 </div>
-               
             </div>
 
-            <div>
+            <div className="table-container">
                 <h2>State Wise Distribution</h2>
-                <table className="styled-table">
-                    <thead>
-                    <th>State</th>
-                    <th>View More</th>
-                    </thead>
-                    <tbody>
-                        {Object.keys(stateData).map(state=> 
-                        <tr key={state}>
-                            <td>{state}</td>
-                            <td><a href="#" onClick={()=>onClick(state)}>View</a></td>
-                        </tr>)
-                        }
-                    </tbody>
-                </table>
+                <TableContainer data={stateData} name={"State"}/>
             </div>   
-      </>       
+            </div>     
     )
 }

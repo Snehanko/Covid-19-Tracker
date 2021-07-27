@@ -13,10 +13,20 @@ body {
   color: #dddddd;
 }
 
+.header-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.mask-image{
+  width: 50px;
+    height: 50px;
+    margin: 0px 15px;
+}
+
 .container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
 }
 
 .list-item {
@@ -31,16 +41,40 @@ body {
   border-radius: 12%;
 }
 
+
 .card-box {
-  background-color: #7c9800;
-  margin: 1rem;
-  padding: 2rem;
-  border: solid 10px #e4dede;
-  border-radius: 12%;
-  color: red;
-  font-size: 17px;
-  font-weight: 400;
+    background-color: pink;
+    margin: 1rem;
+    padding: 1.2rem;
+    border: solid 10px #e4dede;
+    border-radius: 12%;
+    color: white;
+    font-size: 17px;
+    font-weight: 400;
+    width: 150px;
+    height: 150px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
+
+.card-data{
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #292545;
+}
+
+@media screen and (max-width: 400px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 50%;
+    left: 25%;
+    width: fit-content;
+  } 
+} 
 
 /*TABLE DESIGN*/
 .styled-table {
@@ -48,7 +82,7 @@ body {
   margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;
-  min-width: 400px;
+  width: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -96,3 +130,4 @@ tr.active-row {
   font-weight: bold;
   color: #009879;
 }
+

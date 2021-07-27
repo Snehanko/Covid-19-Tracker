@@ -1,13 +1,17 @@
 import React, { useContext} from 'react'
 import { Bar } from 'react-chartjs-2';
 import {DataContext} from './Home Components/Context';
-import './Chart.css'
+import './Chart.css';
+import {Redirect} from "react-router-dom";
 
 export default function District(props) {
 
         const districtName = props.match.params.district;
         const stateName = props.match.params.state
         const [stateData] = useContext(DataContext);
+        if(stateData.length === 0){ // If user is trying to refresh the page redirect him to the home page
+            return <Redirect to="/" />
+        }
         const {active,confirmed,deceased,recovered} = stateData[stateName].districtData[districtName];
         
         const chartConfig={
@@ -15,14 +19,14 @@ export default function District(props) {
                     labels: ['Active', 'Confirmed', 'Deceased', 'Recovered'],
                     datasets: [
                         {
-                            label: 'Covid cases distribution',
                             data: [active,confirmed,deceased,recovered],
                             backgroundColor: [
                             'red',
                             'green',
-                            'black',
+                            'white',
                             'yellow'
-                            ]
+                            ],
+                            color : "#fff"
                         }
                     ]
                     
@@ -38,13 +42,33 @@ export default function District(props) {
                     options={{
                         title:{
                             display:true,
-                            text:'Temporary Dataset',
-                            fontSize:25
+                            fontSize:25,
+                            text :'Covid Cases Distribution'
                         },
-                        legend:{
-                            display:true,
-                            position:'right'
+                        responsive: true,
+                            plugins: {
+                            legend: {
+                                display: false
+                            }
                         },
+                        scales: {
+                            xAxes: [{
+                              display: true,
+                              gridLines: {
+                                display: false,
+                                color: "#FFFFFF",
+                                zeroLineColor: "#FFFFFF"
+                              }
+                            }],
+                            yAxes: [{
+                              display: true,
+                              gridLines: {
+                                display: false,
+                                color: "#FFFFFF",
+                                zeroLineColor: "#FFFFFF"
+                              }
+                            }]
+                          }
                     }} 
                     />
             </div>
